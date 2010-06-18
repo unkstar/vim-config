@@ -51,12 +51,12 @@ nnoremap <F10> :tabn 10<CR>
 nnoremap <F11> :tabn 11<CR>
 nnoremap <F12> :tabn 12<CR>
 
-nnoremap <C-D> :quit<CR>
+nnoremap <C-X> :quit<CR>
 
 nnoremap <C-N> :cnext<CR>
 nnoremap <C-P> :cprevious<CR>
 nnoremap <C-S> :wa<CR>
-nnoremap <C-B> :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
+nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
 
 nnoremap <C-]> g<C-]>
 
