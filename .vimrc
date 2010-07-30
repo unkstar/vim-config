@@ -63,8 +63,7 @@ nnoremap <C-]> g<C-]>
 highlight DiffChange cterm=bold
 highlight DiffAdd cterm=bold
 
-nnoremap <silent> S :exec (":vimgrep '\\\<<cword>\\\>' " . (exists("t:GrepPath") ? t:GrepPath : ".") . "/**")<cr>
-
+nnoremap <silent> S :execute ":vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 
 " fuzzyfinder.vim
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
@@ -97,3 +96,4 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
+let VCSCommandGitExec='C:\Program Files\Git\bin\git.exe'
