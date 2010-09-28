@@ -63,7 +63,7 @@ nnoremap <C-]> g<C-]>
 highlight DiffChange cterm=bold
 highlight DiffAdd cterm=bold
 
-nnoremap <silent> S :execute ":vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
 
 " fuzzyfinder.vim
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
@@ -97,3 +97,17 @@ set tabstop=2
 set shiftwidth=2
 
 let VCSCommandGitExec='C:\Program Files\Git\bin\git.exe'
+
+function! JavaScriptFold() 
+    setl foldmethod=syntax
+    setl foldlevelstart=1
+    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
+
+    function! FoldText()
+        return substitute(getline(v:foldstart), '{.*', '{...}', '')
+    endfunction
+    setl foldtext=FoldText()
+endfunction
+au FileType javascript call JavaScriptFold()
+au FileType javascript setl fen
+
