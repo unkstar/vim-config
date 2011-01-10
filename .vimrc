@@ -82,13 +82,33 @@ nnoremap <silent> <SPACE>A :FufAddBookmark<CR>
 nnoremap <silent> <SPACE>B :FufBookmark<CR>
 nnoremap <silent> <SPACE>E :FufEditInfo<CR>
 
+"""cscope vim remap
+"   's'   symbol: find all references to the token under cursor
+"   'g'   global: find global definition(s) of the token under cursor
+"   'c'   calls:  find all calls to the function name under cursor
+"   'e'   egrep:  egrep search for the word under cursor
+"   'd'   called: find functions that function under cursor calls
+
+nnoremap <silent> <SPACE>S :sc find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>G :sc find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>v :sc find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>E :sc find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>V :sc find d <C-R>=expand("<cword>")<CR><CR>
+
+nnoremap <silent> <SPACE>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent> <SPACE>C :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+
 nnoremap <silent> <SPACE>t :tabnew<CR>
 
 set guioptions-=m  "remove menu bar
 set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove right-hand scroll bar
-set guifont=DejaVu\ Sans\ Mono\ 11 
+set guifont=DejaVu\ Sans\ Mono\ 11
 
 let c_space_errors = 1
 
@@ -96,9 +116,13 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 
+if has("gui_running")
+        set lines=99999 columns=99999
+endif
+
 let VCSCommandGitExec='C:\Program Files\Git\bin\git.exe'
 
-function! JavaScriptFold() 
+function! JavaScriptFold()
     setl foldmethod=syntax
     setl foldlevelstart=1
     syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
@@ -110,4 +134,3 @@ function! JavaScriptFold()
 endfunction
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
-
