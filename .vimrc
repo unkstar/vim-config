@@ -6,6 +6,7 @@ source $VIMRUNTIME/macros/matchit.vim
 
 set fileencodings=ucs-bom,utf-8,cp936,shift_jis
 
+if has("win32")
 set diffexpr=MyDiff()
 function MyDiff()
   let opt = '-a --binary '
@@ -30,6 +31,7 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+endif
 
 syntax on
 set hls
