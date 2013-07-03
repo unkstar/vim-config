@@ -58,7 +58,8 @@ nnoremap <C-X> :quit<CR>
 nnoremap <C-N> :cnext<CR>
 nnoremap <C-P> :cprevious<CR>
 nnoremap <C-S> :wa<CR>
-nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
+"nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
+nnoremap B :wincmd l<CR>:wincmd k<CR>:tabn 1<CR>:make<CR>
 
 nnoremap <C-]> g<C-]>
 
