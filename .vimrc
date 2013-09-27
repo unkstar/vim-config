@@ -4,6 +4,15 @@ set nocompatible
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/macros/matchit.vim
 
+set rtp+=$GOROOT/misc/vim
+filetype plugin indent on
+
+"WTF... $GOROOT/misc/vim/ftdetect/go.vim is not working!
+au BufRead,BufNewFile *.go set filetype=go
+
+
+
+
 set fileencodings=ucs-bom,utf-8,cp936,shift_jis
 
 if has("win32")
@@ -33,6 +42,7 @@ function MyDiff()
 endfunction
 endif
 
+
 syntax on
 set hls
 set foldmethod=syntax
@@ -58,14 +68,16 @@ nnoremap <C-X> :quit<CR>
 nnoremap <C-N> :cnext<CR>
 nnoremap <C-P> :cprevious<CR>
 nnoremap <C-S> :wa<CR>
-nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
+"nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
+nnoremap B :make<CR>
 
 nnoremap <C-]> g<C-]>
 
 highlight DiffChange cterm=bold
 highlight DiffAdd cterm=bold
 
-nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
+"nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
+nnoremap <silent> S :execute ":!ack "expand("<cword>") <Bar> cw<CR>
 
 " fuzzyfinder.vim
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
@@ -117,12 +129,14 @@ let c_space_errors = 1
 set expandtab
 set tabstop=2
 set shiftwidth=2
+set clipboard=unnamed
 
 if has("gui_running")
         set lines=99999 columns=99999
 endif
 
-let VCSCommandGitExec='C:\Program Files\Git\bin\git.exe'
+
+let VCSCommandGitExec='git'
 
 function! JavaScriptFold()
     setl foldmethod=syntax
@@ -136,3 +150,6 @@ function! JavaScriptFold()
 endfunction
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
+
+
+let g:JSLintEnabled = 0
