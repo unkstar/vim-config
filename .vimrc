@@ -33,7 +33,6 @@ function MyDiff()
 endfunction
 endif
 
-syntax on
 set hls
 set foldmethod=syntax
 
@@ -59,14 +58,15 @@ nnoremap <C-N> :cnext<CR>
 nnoremap <C-P> :cprevious<CR>
 nnoremap <C-S> :wa<CR>
 "nnoremap B :make BROWSER=IE MODE=dbg DEMO_VERSION=1<CR>
-nnoremap B :wincmd l<CR>:wincmd k<CR>:tabn 1<CR>:make<CR>
+nnoremap B :wincmd l<CR>:wincmd k<CR>:tabn 1<CR>:make -j 16<CR>
 
 nnoremap <C-]> g<C-]>
 
 highlight DiffChange cterm=bold
 highlight DiffAdd cterm=bold
 
-nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
+"nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
+nnoremap <silent> S :execute ":cexpr system('ack-grep --type-set go=.go" expand("<cword>")  " ')" <Bar> cw<CR> :wincmd l<CR>:wincmd k<CR>:tabn 1<CR> :copen<CR>
 
 " fuzzyfinder.vim
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
@@ -137,3 +137,9 @@ function! JavaScriptFold()
 endfunction
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
+
+filetype off
+filetype plugin indent off
+set runtimepath+=$GOROOT/misc/vim
+filetype plugin indent on
+syntax on
