@@ -1,8 +1,25 @@
 colorscheme darkblue
 set nocp
-set nocompatible
+if has('vim_starting')
+  set nocompatible               " Be iMproved
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
 source $VIMRUNTIME/vimrc_example.vim
 source $VIMRUNTIME/macros/matchit.vim
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+
+
+" Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Recommended to install
+" After install, turn shell ~/.vim/bundle/vimproc, (n,g)make -f your_machines_makefile
+NeoBundle 'Shougo/vimproc'
+
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+
 
 set rtp+=$GOROOT/misc/vim
 filetype plugin indent on
@@ -77,7 +94,8 @@ highlight DiffChange cterm=bold
 highlight DiffAdd cterm=bold
 
 "nnoremap <silent> S :execute ":vimgrep /\\<" . expand("<cword>") . "\\>/j **" <Bar> cw<CR>
-nnoremap <silent> S :execute ":!ack "expand("<cword>") <Bar> cw<CR>
+"nnoremap <silent> S :execute ":!ack "expand("<cword>") <Bar> cw<CR>
+nnoremap <silent> S :execute ":cexpr system('ack -w " expand("<cword>")  " ')" <Bar> cw<CR> copen<CR>
 
 " fuzzyfinder.vim
 let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
@@ -138,18 +156,5 @@ endif
 
 let VCSCommandGitExec='git'
 
-function! JavaScriptFold()
-    setl foldmethod=syntax
-    setl foldlevelstart=1
-    syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
-
-    function! FoldText()
-        return substitute(getline(v:foldstart), '{.*', '{...}', '')
-    endfunction
-    setl foldtext=FoldText()
-endfunction
-au FileType javascript call JavaScriptFold()
-au FileType javascript setl fen
-
-
 let g:JSLintEnabled = 0
+au FileType javascript call JavaScriptFold()
